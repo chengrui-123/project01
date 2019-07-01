@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: zuul
+   
+rabbitmq:
+   host: 192.168.91.130
+   port: 5672
+   username: admin
+   password: admin
+       
+server:
+  port: 3001
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka, http://eureka2:2002/eureka
+
+
+zuul:
+  retryable: true
+  
+#有默认值，可不设置
+#zuul:
+ # routes:
+  #  item-service: /item-service/**
+   # user-service: /user-service/**
+    # order-service: /order-service/**
+
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+  MaxAutoRetriesNextServer: 1
+  MaxAutoRetries: 1  
+ 
+#设置出现服务降级 的请求时长
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 500 
+
+#熔断需暴露监控端点以便观察  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
